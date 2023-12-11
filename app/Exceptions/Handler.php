@@ -47,4 +47,12 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+
+        return response()->json(['message' => 'Unauthorized'], 401);
+
+        // return redirect()->guest(route('login')); // Keep the redirect for web routes
+    }
 }
