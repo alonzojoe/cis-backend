@@ -17,10 +17,10 @@ use PHPUnit\Runner\AfterTestHook;
 
 class ChartController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
     public function store(Request $request)
     {
@@ -42,8 +42,8 @@ class ChartController extends Controller
             'unremarkable' => $request->f_unremarkable,
             'hcvd' => $request->hcvd,
             'chd' => $request->chd,
-            'cva' => $request->cva,
-            'gut_disease' => $request->gut_disease,
+            'cva' => $request->f_cva,
+            'gut_disease' => $request->f_gut_disease,
             'blood_dyscrasia' => $request->blood_dyscrasia,
             'allergy' => $request->allergy,
             'dm' => $request->dm,
