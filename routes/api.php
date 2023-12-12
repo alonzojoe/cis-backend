@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ChartController;
 use App\Http\Controllers\API\PhysicianController;
-use App\Models\Physician;
+use App\Http\Controllers\API\UserController;
 
 Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -25,4 +25,10 @@ Route::group(['prefix' => 'physician'], function () {
     Route::post('/create', [PhysicianController::class, 'store']);
     Route::put('/{id}', [PhysicianController::class, 'update']);
     Route::patch('/inactive/{id}', [PhysicianController::class, 'inactive']);
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/create', [UserController::class, 'store']);
+    Route::patch('/{id}', [UserController::class, 'update']);
 });
