@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SocialHistory extends Model
 {
     use HasFactory;
-
+    protected $table = "social_history";
     protected $fillable = [
         'smoking',
         'alcohol_intake',

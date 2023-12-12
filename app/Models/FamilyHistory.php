@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FamilyHistory extends Model
 {
     use HasFactory;
-
+    protected $table = "family_history";
     protected $fillable = [
         'unremarkable',
         'hcvd',
