@@ -24,6 +24,24 @@ class ConsultationHistory extends Model
         'created_by',
     ];
 
+    // public static function generateConsultationNo()
+    // {
+    //     $currentTime = now();
+    //     $currentTimeWithSeconds = $currentTime->format('His');
+    //     $milliseconds = $currentTime->format('v');
+    //     $milliseconds = str_pad($milliseconds, 6, '0', STR_PAD_LEFT);
+
+    //     return 'CON-' . $currentTime->year . '-' . $currentTime->month . '-' . $currentTimeWithSeconds;
+    // }
+    public static function generateConsultationNo()
+    {
+        $currentTime = now();
+        $milliseconds = $currentTime->format('v');
+        $milliseconds = str_pad($milliseconds, 2, '0', STR_PAD_LEFT);
+
+        return 'CON-' . $currentTime->year . '-' . $currentTime->month . '-' . $currentTime->format('His') . $milliseconds;
+    }
+
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'patient_id');

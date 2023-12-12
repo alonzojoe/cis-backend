@@ -77,10 +77,12 @@ class ChartController extends Controller
             'created_by' => $request->created_by,
         ]);
 
+        $consultationNo = ConsultationHistory::generateConsultationNo();
+
         $consultation_history = ConsultationHistory::create([
             'patient_id' => $patient->id,
             'physician_id' => $request->physician_id,
-            'consultation_no' => $request->consultation_no,
+            'consultation_no' => $consultationNo,
             'consultation_datetime' => $request->consultation_datetime,
             'payment_type' => $request->payment_type,
             'chief_complaint' => strtoupper($request->chief_complaint),
