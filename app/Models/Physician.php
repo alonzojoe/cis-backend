@@ -14,5 +14,6 @@ class Physician extends Model
         'lname',
         'fname',
         'mname',
-    ];  
+        'status',
+    ];
 }
