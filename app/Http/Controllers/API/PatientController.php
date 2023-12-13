@@ -160,6 +160,50 @@ class PatientController extends Controller
         }
     }
 
+    public function report(Request $request)
+    {
+        try {
+
+            $date_from = $request->input('date_from');
+            $date_to = $request->input('date_to');
+
+            $query = ConsultationHistory::query();
+            $query->where('ch.status', '=', 1);
+
+            if ($date_from && $date_to) {
+                $query->whereDate('ch.consultation_datetime', '>=', $date_from)->whereDate('ch.consultation_datetime', '<=', $date_to);
+            }
+
+            $query->orderBy('ch.id', 'desc');
+            $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
+                ->join('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
+            $query->select(
+                'ch.id AS consultation_id',
+                'ch.consultation_no',
+                'ch.consultation_datetime',
+                'p.lname AS patient_lname',
+                'p.fname AS patient_fname',
+                'p.mname AS patient_mname',
+                'p.suffix AS patient_suffix',
+                'ch.assessment AS diagnosis',
+                'ch.payment_type',
+                'ch.created_at AS ch_created_at',
+                'ch.updated_at AS ch_updated_at',
+                DB::raw('CONCAT(p.lname, ", ", p.fname, IFNULL(CONCAT(" ", p.mname), ""), IFNULL(CONCAT(" ", p.suffix), "")) AS patient'),
+                DB::raw('CONCAT(phy.lname, ", ", phy.fname, IFNULL(CONCAT(" ", phy.mname), "")) AS physician')
+            )->from('consultation_history AS ch');
+            $results = $query->get();
+            return response()->json([
+                'status' => 'success',
+                'data' => $results,
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'No Patient Found' . $e], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Something went wrong' . $e], 500);
+        }
+    }
+
     public function inactive($id)
     {
         $consultation = ConsultationHistory::findOrFail($id);
