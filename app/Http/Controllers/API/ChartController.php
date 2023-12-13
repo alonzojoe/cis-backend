@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use PHPUnit\Runner\AfterTestHook;
 
 class ChartController extends Controller
 {

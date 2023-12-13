@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ChartController;
 use App\Http\Controllers\API\PhysicianController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\PatientController;
 
 Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -16,6 +17,7 @@ Route::group(['prefix' => '/auth'], function () {
 });
 
 Route::group(['prefix' => 'patient'], function () {
+    Route::get('/concierge', [PatientController::class, 'concierge']);
     Route::post('/chart/create', [ChartController::class, 'store']);
 });
 

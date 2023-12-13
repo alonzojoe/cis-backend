@@ -33,13 +33,21 @@ class ConsultationHistory extends Model
 
     //     return 'CON-' . $currentTime->year . '-' . $currentTime->month . '-' . $currentTimeWithSeconds;
     // }
+    // public static function generateConsultationNo()
+    // {
+    //     $currentTime = now();
+    //     $milliseconds = $currentTime->format('v');
+    //     $milliseconds = str_pad($milliseconds, 2, '0', STR_PAD_LEFT);
+
+    //     return 'CON-' . $currentTime->year . '-' . $currentTime->month . '-' . $currentTime->day . '-' . $currentTime->format('His') . $milliseconds;
+    // }
+
     public static function generateConsultationNo()
     {
         $currentTime = now();
-        $milliseconds = $currentTime->format('v');
-        $milliseconds = str_pad($milliseconds, 2, '0', STR_PAD_LEFT);
+        $milliseconds = str_pad($currentTime->format('v'), 2, '0', STR_PAD_LEFT);
 
-        return 'CON-' . $currentTime->year . '-' . $currentTime->month . '-' . $currentTime->format('His') . $milliseconds;
+        return 'CON-' . $currentTime->format('Ymd-His') . $milliseconds;
     }
 
     public function patient()
