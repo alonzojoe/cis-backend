@@ -159,4 +159,14 @@ class PatientController extends Controller
             return response()->json(['message' => 'Something went wrong' . $e], 500);
         }
     }
+
+    public function inactive($id)
+    {
+        $consultation = ConsultationHistory::findOrFail($id);
+        $consultation->update([
+            'status' => 0
+        ]);
+
+        return response()->json(['data' => $consultation, 'message', 'Patient is Set to Inactive'], 200);
+    }
 }

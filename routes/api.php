@@ -20,6 +20,7 @@ Route::group(['prefix' => 'patient'], function () {
     Route::get('/concierge', [PatientController::class, 'concierge']);
     Route::get('/masterfile', [PatientController::class, 'masterfile']);
     Route::post('/chart/create', [ChartController::class, 'store']);
+    Route::patch('/inactive/{id}', [PatientController::class, 'inactive']);
 });
 
 Route::group(['prefix' => 'physician'], function () {
