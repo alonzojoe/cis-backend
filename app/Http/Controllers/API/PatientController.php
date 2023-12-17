@@ -70,7 +70,7 @@ class PatientController extends Controller
                 'ch.*',
                 'p.*',
                 'phy.*',
-                DB::raw('CONCAT(phy.fname, " ", IF(phy.lname IS NULL OR phy.mname = "", "", CONCAT(SUBSTRING(phy.mname, 1, 1), ". ")), phy.lname) AS physician')
+                DB::raw('CONCAT(phy.lname, ", ", phy.fname, IFNULL(CONCAT(" ", phy.mname), "")) AS physician')
             )->from('consultation_history AS ch');
             $results = $query->paginate($perPage);
             return response()->json([
@@ -144,7 +144,7 @@ class PatientController extends Controller
                 'ch.*',
                 'p.*',
                 'phy.*',
-                DB::raw('CONCAT(phy.fname, " ", IF(phy.lname IS NULL OR phy.mname = "", "", CONCAT(SUBSTRING(phy.mname, 1, 1), ". ")), phy.lname) AS physician')
+                DB::raw('CONCAT(phy.lname, ", ", phy.fname, IFNULL(CONCAT(" ", phy.mname), "")) AS physician')
             )->from('consultation_history AS ch');
             $results = $query->paginate($perPage);
             return response()->json([
@@ -174,7 +174,7 @@ class PatientController extends Controller
                 $query->whereDate('ch.consultation_datetime', '>=', $date_from)->whereDate('ch.consultation_datetime', '<=', $date_to);
             }
 
-            $query->orderBy('ch.id', 'desc');
+            $query->orderBy('ch.id', 'asc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
                 ->join('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(

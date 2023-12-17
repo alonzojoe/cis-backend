@@ -25,11 +25,12 @@ Route::group(['prefix' => 'patient'], function () {
 });
 
 Route::group(['prefix' => 'physician'], function () {
-    Route::get('/all', [PhysicianController::class, 'all']);
-    Route::get('/', [PhysicianController::class, 'index']);
     Route::post('/create', [PhysicianController::class, 'store']);
     Route::put('/{id}', [PhysicianController::class, 'update']);
     Route::patch('/inactive/{id}', [PhysicianController::class, 'inactive']);
+    Route::patch('/active/{id}', [PhysicianController::class, 'active']);
+    Route::get('/all', [PhysicianController::class, 'all']);
+    Route::get('/', [PhysicianController::class, 'index']);
 });
 
 Route::group(['prefix' => 'user'], function () {

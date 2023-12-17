@@ -106,4 +106,12 @@ class PhysicianController extends Controller
 
         return response()->json(['data' => $physician, 'message' => 'Physician Set to Inactive'], 200);
     }
+
+    public function active($id)
+    {
+        $physician = Physician::findOrFail($id);
+        $physician->update(['status' => 1]);
+
+        return response()->json(['data' => $physician, 'message' => 'Physician Set to Inactive'], 200);
+    }
 }
