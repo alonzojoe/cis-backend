@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class UserController extends Controller
 {
@@ -16,6 +17,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
+        $email = $request->input('email');
         $lname = $request->input('lname');
         $fname = $request->input('fname');
         $mname = $request->input('mname');
@@ -23,6 +25,10 @@ class UserController extends Controller
         $perPage = $request->input('perPage', 10);
 
         $query = User::query();
+
+        if ($email) {
+            $query->where('email', 'like', '%' . $email . '%');
+        }
 
         if ($lname) {
             $query->where('lname', 'like', '%' . $lname . '%');
@@ -39,9 +45,21 @@ class UserController extends Controller
         $query->orderBy('id', 'desc');
         $results = $query->paginate($perPage);
 
+        $transformedUsers = $results->map(function ($user) {
+            $userArray = $user->toArray();
+
+            $mname = $user->mname ? substr($user->mname, 0, 1) . '.' : substr($user->mname, 0, 1);
+            $userArray['fullname'] = $user->fname . ' ' . $mname . ' ' . $user->lname;
+
+            $userArray['bool'] = Crypt::encryptString($user->pw);
+
+
+            return $userArray;
+        });
+
         return response()->json([
             'status' => 'success',
-            'data' => $results->items(),
+            'data' => $transformedUsers->toArray(),
             'total_pages' => $results->lastPage(),
             'total' => $results->total()
         ], 200);
