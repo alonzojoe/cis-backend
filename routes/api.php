@@ -33,6 +33,11 @@ Route::group(['prefix' => 'chart'], function () {
     Route::patch('/consultation/{id}', [ChartController::class, 'updateConsultation']);
     Route::patch('/vital/{id}', [ChartController::class, 'updateVitalSigns']);
     Route::post('/old/create', [ChartController::class, 'createExistingPatient']);
+    Route::get('/past/{id}', [ChartController::class, 'getPast']);
+    Route::get('/family/{id}', [ChartController::class, 'getFamily']);
+    Route::get('/social/{id}', [ChartController::class, 'getSocial']);
+    Route::get('/patient/{id}', [ChartController::class, 'getPatient']);
+    Route::get('/consultation/{id}', [ChartController::class, 'getConsultationHistory']);
 });
 
 Route::group(['prefix' => 'physician'], function () {

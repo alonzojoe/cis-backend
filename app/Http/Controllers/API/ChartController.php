@@ -277,4 +277,22 @@ class ChartController extends Controller
         $social_history = SocialHistory::findOrFail($id);
         return response()->json(['data' => $social_history, 'message' => 'Social History Record Retrieved'], 200);
     }
+
+    public function getPatient($id)
+    {
+        $patient = Patient::findOrFail($id);
+        return response()->json(['data' => $patient, 'message' => 'Patient Record Retrieved'], 200);
+    }
+
+    public function getConsultationHistory($id)
+    {
+        $consultation_history = ConsultationHistory::findOrFail($id);
+        return response()->json(['data' => $consultation_history, 'message' => 'Consultation History Record Retrieved'], 200);
+    }
+
+    public function getVitalSigns($id)
+    {
+        $vital_signs = VitalSigns::findOrFail($id);
+        return response()->json(['data' => $vital_signs, 'message' => 'Vital Signs Record Retrieved'], 200);
+    }
 }
