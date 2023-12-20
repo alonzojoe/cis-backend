@@ -17,6 +17,7 @@ class VitalSigns extends Model
         'bp_f',
         'bp_s',
         'oxygen_saturation',
+        'temperature',
         'respiratory_rate',
         'pulse_rate',
         'cbg',
