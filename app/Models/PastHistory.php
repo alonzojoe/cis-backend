@@ -18,6 +18,8 @@ class PastHistory extends Model
         'gut_disease',
         'git_disease',
         'pulmo_disease',
+        'heart_disease',
+        'dm',
         'previous_or',
         'previous_hospitalization',
         'other_findings',
