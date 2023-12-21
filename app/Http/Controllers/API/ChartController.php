@@ -36,8 +36,8 @@ class ChartController extends Controller
             'heart_disease'  => $request->heart_disease,
             'dm'  => $request->dm,
             'previous_or' => strtoupper($request->previous_or),
-            'previous_hospitalization' => strtoupper($request->previous_or),
-            'other_findings' => strtoupper($request->previous_or),
+            'previous_hospitalization' => strtoupper($request->previous_hospitalization),
+            'other_findings' => strtoupper($request->other_findings),
         ]);
 
         $family_history = FamilyHistory::create([
@@ -135,8 +135,8 @@ class ChartController extends Controller
             'heart_disease'  => $request->heart_disease,
             'dm'  => $request->dm,
             'previous_or' => strtoupper($request->previous_or),
-            'previous_hospitalization' => strtoupper($request->previous_or),
-            'other_findings' => strtoupper($request->previous_or),
+            'previous_hospitalization' => strtoupper($request->previous_hospitalization),
+            'other_findings' => strtoupper($request->other_findings),
         ]);
 
         return response()->json(['data' => $past_history, 'message' => 'Past History Record Updated Successfully.'], 200);
