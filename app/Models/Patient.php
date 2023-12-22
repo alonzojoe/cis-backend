@@ -27,6 +27,11 @@ class Patient extends Model
         'status',
     ];
 
+    public function consultationHistories()
+    {
+        return $this->hasMany(ConsultationHistory::class, 'patient_id');
+    }
+
     public function pastHistory()
     {
         return $this->belongsTo(PastHistory::class, 'past_history_id');

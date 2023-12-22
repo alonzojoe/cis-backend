@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Redis;
 
 class PatientController extends Controller
 {
@@ -155,7 +156,7 @@ class PatientController extends Controller
             }
 
             if ($birthdate) {
-                $query->where('p.birthdate', 'like', '%' . $birthdate . '%');
+                $query->where('p.birthdate', 'like', '=',  $birthdate);
             }
 
             if ($payment_type) {
@@ -248,5 +249,49 @@ class PatientController extends Controller
         ]);
 
         return response()->json(['data' => $consultation, 'message', 'Patient is Set to Inactive'], 200);
+    }
+
+    public function searchPatient(Request $request)
+    {
+        $lname = $request->input('lname');
+        $fname = $request->input('fname');
+        $mname = $request->input('mname');
+        $birthdate = $request->input('birthdate');
+
+        $query = Patient::query();
+
+        if ($lname) {
+            $query->where('p.lname', 'like', '%' . $lname . '%');
+        }
+
+        if ($fname) {
+            $query->where('p.fname', 'like', '%' . $fname . '%');
+        }
+
+        if ($mname) {
+            $query->where('p.mname', 'like', '%' . $mname . '%');
+        }
+
+        if ($birthdate) {
+            $query->where('p.birthdate', '=', $birthdate);
+        }
+
+        $query->orderBy('id', 'desc');
+        $results = $query->take(10)->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => $results,
+        ], 200);
+    }
+
+    public function getLatestConsultationHistory($id)
+    {
+        $patient = Patient::findOrFail($id);
+        $latestConsultation = $patient->consultationHistories()->latest()->first();
+        $vitalSigns = VitalSigns::where('consultation_id', '=', $latestConsultation->id)->first();
+        return response()->json([
+            'status' => 'success',
+            'data' => $vitalSigns,
+        ], 200);
     }
 }
