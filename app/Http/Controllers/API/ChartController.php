@@ -67,6 +67,7 @@ class ChartController extends Controller
             'lname' => strtoupper($request->lname),
             'fname' => strtoupper($request->fname),
             'mname' => strtoupper($request->mname),
+            'suffix' => strtoupper($request->suffix),
             'birthdate' => $request->birthdate,
             'age' => $request->age,
             'gender' => $request->gender,
@@ -181,6 +182,7 @@ class ChartController extends Controller
             'lname' => strtoupper($request->lname),
             'fname' => strtoupper($request->fname),
             'mname' => strtoupper($request->mname),
+            'suffix' => strtoupper($request->suffix),
             'birthdate' => $request->birthdate,
             'age' => $request->age,
             'gender' => $request->gender,
@@ -299,7 +301,7 @@ class ChartController extends Controller
 
     public function getVitalSigns($id)
     {
-        $vital_signs = VitalSigns::findOrFail($id);
-        return response()->json(['data' => $vital_signs, 'message' => 'Vital Signs Record Retrieved'], 200);
+        $vital_signs = VitalSigns::where('consultation_id', $id)->get();
+        return response()->json(['data' => $vital_signs->first(), 'message' => 'Vital Signs Record Retrieved'], 200);
     }
 }

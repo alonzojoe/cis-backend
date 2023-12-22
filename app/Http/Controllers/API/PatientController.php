@@ -86,6 +86,42 @@ class PatientController extends Controller
         }
     }
 
+    public function showConsultation($id)
+    {
+        try {
+
+
+            $query = ConsultationHistory::query();
+            $query->where('ch.status', '=', 1);
+            $query->where('ch.id', '=', $id);
+            $query->orderBy('ch.id', 'desc');
+            $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
+                ->join('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
+            $query->select(
+                'ch.id AS consultation_id',
+                'p.lname AS patient_lname',
+                'p.fname AS patient_fname',
+                'p.mname AS patient_mname',
+                'p.suffix AS patient_suffix',
+                'ch.created_at AS ch_created_at',
+                'ch.updated_at AS ch_updated_at',
+                'ch.*',
+                'p.*',
+                'phy.*',
+                DB::raw('CONCAT(phy.lname, ", ", phy.fname, IFNULL(CONCAT(" ", phy.mname), "")) AS physician')
+            )->from('consultation_history AS ch');
+            $results = $query->first();
+            return response()->json([
+                'status' => 'success',
+                'data' => $results,
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'No Patient Found' . $e], 404);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Something went wrong' . $e], 500);
+        }
+    }
+
     public function masterfile(Request $request)
     {
         try {

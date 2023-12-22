@@ -13,6 +13,7 @@ class Patient extends Model
         'lname',
         'fname',
         'mname',
+        'suffix',
         'birthdate',
         'age',
         'gender',

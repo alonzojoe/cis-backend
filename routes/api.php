@@ -17,6 +17,7 @@ Route::group(['prefix' => '/auth'], function () {
 });
 
 Route::group(['prefix' => 'patient'], function () {
+    Route::get('/consultation/{id}', [PatientController::class, 'showConsultation']);
     Route::get('/concierge', [PatientController::class, 'concierge']);
     Route::get('/masterfile', [PatientController::class, 'masterfile']);
     Route::patch('/inactive/{id}', [PatientController::class, 'inactive']);
@@ -38,6 +39,7 @@ Route::group(['prefix' => 'chart'], function () {
     Route::get('/social/{id}', [ChartController::class, 'getSocial']);
     Route::get('/patient/{id}', [ChartController::class, 'getPatient']);
     Route::get('/consultation/{id}', [ChartController::class, 'getConsultationHistory']);
+    Route::get('/vital/{id}', [ChartController::class, 'getVitalSigns']);
 });
 
 Route::group(['prefix' => 'physician'], function () {
