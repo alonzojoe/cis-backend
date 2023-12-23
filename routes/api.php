@@ -22,7 +22,7 @@ Route::group(['prefix' => 'patient'], function () {
     Route::get('/masterfile', [PatientController::class, 'masterfile']);
     Route::patch('/inactive/{id}', [PatientController::class, 'inactive']);
     Route::get('/report', [PatientController::class, 'report']);
-    Route::get('/search', [PatientController::class . 'searchPatient']);
+    Route::get('/search', [PatientController::class, 'searchPatient']);
     Route::get('/latest/{id}', [PatientController::class, 'getLatestConsultationHistory']);
     //chart
 });

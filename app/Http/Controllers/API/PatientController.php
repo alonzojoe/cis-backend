@@ -261,19 +261,19 @@ class PatientController extends Controller
         $query = Patient::query();
 
         if ($lname) {
-            $query->where('p.lname', 'like', '%' . $lname . '%');
+            $query->where('lname', 'like', '%' . $lname . '%');
         }
 
         if ($fname) {
-            $query->where('p.fname', 'like', '%' . $fname . '%');
+            $query->where('fname', 'like', '%' . $fname . '%');
         }
 
         if ($mname) {
-            $query->where('p.mname', 'like', '%' . $mname . '%');
+            $query->where('mname', 'like', '%' . $mname . '%');
         }
 
         if ($birthdate) {
-            $query->where('p.birthdate', '=', $birthdate);
+            $query->where('birthdate', '=', $birthdate);
         }
 
         $query->orderBy('id', 'desc');
