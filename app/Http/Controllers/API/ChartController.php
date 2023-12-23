@@ -230,7 +230,7 @@ class ChartController extends Controller
         return response()->json(['data' => $vital_signs, 'message' => 'Vital Signs Record Updated Successfully'], 200);
     }
 
-    public function createExistingPatient(Request $request, $id)
+    public function createExistingPatient(Request $request)
     {
         $consultationNo = ConsultationHistory::generateConsultationNo();
         $consultation_history = ConsultationHistory::create([
