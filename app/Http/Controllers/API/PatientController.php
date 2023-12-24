@@ -59,7 +59,7 @@ class PatientController extends Controller
 
             $query->orderBy('ch.id', 'desc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
-                ->join('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
+                ->leftJoin('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(
                 'ch.id AS consultation_id',
                 'p.lname AS patient_lname',
@@ -97,7 +97,7 @@ class PatientController extends Controller
             $query->where('ch.id', '=', $id);
             $query->orderBy('ch.id', 'desc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
-                ->join('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
+                ->leftJoin('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(
                 'ch.id AS consultation_id',
                 'p.lname AS patient_lname',
@@ -169,7 +169,7 @@ class PatientController extends Controller
 
             $query->orderBy('ch.id', 'desc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
-                ->join('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
+                ->leftJoin('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(
                 'ch.id AS consultation_id',
                 'p.lname AS patient_lname',
@@ -213,7 +213,7 @@ class PatientController extends Controller
 
             $query->orderBy('ch.id', 'asc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
-                ->join('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
+                ->leftJoin('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(
                 'ch.id AS consultation_id',
                 'ch.consultation_no',
