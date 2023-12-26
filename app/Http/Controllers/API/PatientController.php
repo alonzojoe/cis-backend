@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\PastHistory;
-use App\Models\FamilyHistory;
-use App\Models\SocialHistory;
 use App\Models\Patient;
 use App\Models\ConsultationHistory;
 use App\Models\VitalSigns;
@@ -13,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Redis;
 
 class PatientController extends Controller
 {
@@ -137,7 +133,6 @@ class PatientController extends Controller
             $perPage = $request->input('perPage', 10);
 
             $query = ConsultationHistory::query();
-            $query->where('ch.status', '=', 1);
 
             if ($consultation_no) {
                 $query->where('ch.consultation_no', 'like', '%' . $consultation_no . '%');

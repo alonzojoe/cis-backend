@@ -7,6 +7,7 @@ use App\Http\Controllers\API\ChartController;
 use App\Http\Controllers\API\PhysicianController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PatientController;
+use App\Http\Controllers\API\DashboardController;
 
 Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -57,4 +58,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/create', [UserController::class, 'store']);
     Route::patch('/{id}', [UserController::class, 'update']);
+});
+
+
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::get('/', [DashboardController::class, 'index']);
 });
