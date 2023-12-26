@@ -65,6 +65,17 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function checkEmail($email)
+    {
+        $trimmedEmail = trim($email);
+        $user = User::where('email', '=', $trimmedEmail)->count();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $user,
+        ], 200);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

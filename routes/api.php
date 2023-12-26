@@ -58,6 +58,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/create', [UserController::class, 'store']);
     Route::patch('/{id}', [UserController::class, 'update']);
+    Route::get('/check/{email}', [UserController::class, 'checkEmail']);
 });
 
 
