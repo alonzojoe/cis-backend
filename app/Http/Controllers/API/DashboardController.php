@@ -24,7 +24,7 @@ class DashboardController extends Controller
         $users = User::count();
         $physicians = Physician::count();
         $patients = Patient::count();
-        $active = ConsultationHistory::where('status', 1)->count();
+        $active = ConsultationHistory::count();
         $inactive = ConsultationHistory::where('status', 0)->count();
         $tracker = number_format($patients + $active + $inactive);
 
