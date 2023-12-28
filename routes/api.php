@@ -8,6 +8,8 @@ use App\Http\Controllers\API\PhysicianController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PatientController;
 use App\Http\Controllers\API\DashboardController;
+use App\Http\Controllers\API\ForgotPasswordController;
+use App\Http\Controllers\API\ResetPasswordController;
 
 Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -15,6 +17,8 @@ Route::group(['prefix' => '/auth'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::post('/me', [AuthController::class, 'me']);
+    Route::post('/forgot', [ForgotPasswordController::class, 'forgotPassword']);
+    Route::post('/reset', [ResetPasswordController::class, 'resetPassword']);
 });
 
 Route::group(['prefix' => 'patient'], function () {
