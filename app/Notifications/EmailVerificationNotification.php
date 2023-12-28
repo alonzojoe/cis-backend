@@ -23,7 +23,7 @@ class EmailVerificationNotification extends Notification
      */
     public function __construct()
     {
-        $this->message = 'Use the OTP for verification process';
+        $this->message = 'Use the OTP for reset password verification process';
         $this->subject = 'Verification Needed';
         $this->fromEmail = "norepy.cdh.cis@gmail.com";
         $this->mailer = 'smtp';
