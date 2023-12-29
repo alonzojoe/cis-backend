@@ -53,7 +53,7 @@ class PatientController extends Controller
                 $query->where('ch.payment_type', 'like', '%' . $payment_type . '%');
             }
 
-            $query->orderBy('ch.id', 'desc');
+            $query->orderBy('ch.consultation_datetime', 'desc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
                 ->leftJoin('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(
@@ -162,7 +162,7 @@ class PatientController extends Controller
                 $query->whereDate('ch.consultation_datetime', '>=', $date_from)->whereDate('ch.consultation_datetime', '<=', $date_to);
             }
 
-            $query->orderBy('ch.id', 'desc');
+            $query->orderBy('ch.consultation_datetime', 'desc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
                 ->leftJoin('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(
@@ -206,7 +206,7 @@ class PatientController extends Controller
                 $query->whereDate('ch.consultation_datetime', '>=', $date_from)->whereDate('ch.consultation_datetime', '<=', $date_to);
             }
 
-            $query->orderBy('ch.id', 'asc');
+            $query->orderBy('ch.consultation_datetime', 'asc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
                 ->leftJoin('physicians AS phy', 'ch.physician_id', '=', 'phy.id');
             $query->select(
