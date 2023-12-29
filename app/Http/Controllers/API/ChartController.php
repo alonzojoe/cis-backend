@@ -80,7 +80,7 @@ class ChartController extends Controller
             'created_by' => $request->created_by,
         ]);
 
-        $consultationNo = ConsultationHistory::generateConsultationNo();
+        $consultationNo = ConsultationHistory::generateConsultationNo($request->consultation_datetime);
 
         $consultation_history = ConsultationHistory::create([
             'patient_id' => $patient->id,
@@ -232,7 +232,7 @@ class ChartController extends Controller
 
     public function createExistingPatient(Request $request)
     {
-        $consultationNo = ConsultationHistory::generateConsultationNo();
+        $consultationNo = ConsultationHistory::generateConsultationNo($request->consultation_datetime);
         $consultation_history = ConsultationHistory::create([
             'patient_id' => $request->patient_id,
             'physician_id' => $request->physician_id,

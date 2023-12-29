@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ConsultationHistory extends Model
 {
@@ -42,12 +43,22 @@ class ConsultationHistory extends Model
     //     return 'CON-' . $currentTime->year . '-' . $currentTime->month . '-' . $currentTime->day . '-' . $currentTime->format('His') . $milliseconds;
     // }
 
-    public static function generateConsultationNo()
+    // public static function generateConsultationNo()
+    // {
+    //     $currentTime = now();
+    //     $milliseconds = str_pad($currentTime->format('v'), 2, '0', STR_PAD_LEFT);
+
+    //     return 'CON-' . $currentTime->format('Ymd-His') . $milliseconds;
+    // }
+
+    public static function generateConsultationNo($consultationDatetime)
     {
+        $consultationDatetime = Carbon::parse($consultationDatetime);
+        // Extract milliseconds from the provided datetime
         $currentTime = now();
         $milliseconds = str_pad($currentTime->format('v'), 2, '0', STR_PAD_LEFT);
 
-        return 'CON-' . $currentTime->format('Ymd-His') . $milliseconds;
+        return 'CON-' . $consultationDatetime->format('Ymd-His') . $milliseconds;
     }
 
     public function patient()
