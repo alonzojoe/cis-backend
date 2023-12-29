@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PatientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function concierge(Request $request)
     {
         try {
@@ -62,6 +67,7 @@ class PatientController extends Controller
                 'p.fname AS patient_fname',
                 'p.mname AS patient_mname',
                 'p.suffix AS patient_suffix',
+                'ch.status as consultation_status',
                 'ch.created_at AS ch_created_at',
                 'ch.updated_at AS ch_updated_at',
                 'ch.*',
@@ -171,6 +177,7 @@ class PatientController extends Controller
                 'p.fname AS patient_fname',
                 'p.mname AS patient_mname',
                 'p.suffix AS patient_suffix',
+                'ch.status as consultation_status',
                 'ch.created_at AS ch_created_at',
                 'ch.updated_at AS ch_updated_at',
                 'ch.*',
@@ -217,6 +224,7 @@ class PatientController extends Controller
                 'p.fname AS patient_fname',
                 'p.mname AS patient_mname',
                 'p.suffix AS patient_suffix',
+                'ch.status as consultation_status',
                 'ch.assessment AS diagnosis',
                 'ch.payment_type',
                 'ch.created_at AS ch_created_at',
@@ -239,11 +247,17 @@ class PatientController extends Controller
     public function inactive($id)
     {
         $consultation = ConsultationHistory::findOrFail($id);
-        $consultation->update([
-            'status' => 0
-        ]);
+        $consultation->update(['status' => 0]);
 
-        return response()->json(['data' => $consultation, 'message', 'Patient is Set to Inactive'], 200);
+        return response()->json(['data' => $consultation, 'message' => 'Consultation Set to Inactive'], 200);
+    }
+
+    public function active($id)
+    {
+        $consultation = ConsultationHistory::findOrFail($id);
+        $consultation->update(['status' => 1]);
+
+        return response()->json(['data' => $consultation, 'message' => 'Consultation Set to Active'], 200);
     }
 
     public function searchPatient(Request $request)
