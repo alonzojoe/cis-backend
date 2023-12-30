@@ -95,7 +95,6 @@ class PatientController extends Controller
 
 
             $query = ConsultationHistory::query();
-            $query->where('ch.status', '=', 1);
             $query->where('ch.id', '=', $id);
             $query->orderBy('ch.id', 'desc');
             $query->join('patients AS p', 'ch.patient_id', '=', 'p.id')
