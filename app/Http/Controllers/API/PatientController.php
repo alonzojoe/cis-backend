@@ -51,11 +51,12 @@ class PatientController extends Controller
             }
 
             if ($birthdate) {
-                $query->where('p.birthdate', 'like', '%' . $birthdate . '%');
+                $query->where('p.birthdate', '=',  $birthdate);
             }
 
+
             if ($payment_type) {
-                $query->where('ch.payment_type', 'like', '%' . $payment_type . '%');
+                $query->where('ch.payment_type', '=', $payment_type);
             }
 
             $query->orderBy('ch.consultation_datetime', 'desc');
@@ -156,11 +157,11 @@ class PatientController extends Controller
             }
 
             if ($birthdate) {
-                $query->where('p.birthdate', 'like', '=',  $birthdate);
+                $query->where('p.birthdate', '=',  $birthdate);
             }
 
             if ($payment_type) {
-                $query->where('ch.payment_type', 'like', '%' . $payment_type . '%');
+                $query->where('ch.payment_type', '=', $payment_type);
             }
 
             if ($date_from && $date_to) {
