@@ -30,6 +30,7 @@ Route::group(['prefix' => 'patient'], function () {
     Route::get('/report', [PatientController::class, 'report']);
     Route::get('/search', [PatientController::class, 'searchPatient']);
     Route::get('/latest/{id}', [PatientController::class, 'getLatestConsultationHistory']);
+    Route::get('/history/{id}', [PatientController::class, 'history']);
 });
 
 Route::group(['prefix' => 'chart'], function () {

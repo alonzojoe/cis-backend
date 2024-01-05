@@ -303,4 +303,24 @@ class PatientController extends Controller
             'data' => $vitalSigns,
         ], 200);
     }
+
+    public function history($id)
+    {
+        $history = Patient::where('id', '=', $id)
+            ->with([
+                'consultationHistories' => function ($query) {
+                    $query->select(
+                        'consultation_history.id AS consultation_id',
+                        'consultation_history.*',
+                        'physicians.*',
+                        DB::raw('CONCAT(physicians.lname, ", ", physicians.fname, IFNULL(CONCAT(" ", physicians.mname), "")) AS physician')
+                    )->join('physicians', 'consultation_history.physician_id', '=', 'physicians.id');
+                }
+            ])->get();
+
+        return response()->json([
+            'data' => $history,
+            'message' => 'Consultation History Retrieved',
+        ], 200);
+    }
 }
