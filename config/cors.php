@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL'), 'http://localhost:5173', 'http://192.168.1.5:5173', 'http://localhost:54188'],
+    'allowed_origins' => [env('FRONTEND_URL'), 'http://localhost:5173', 'http://192.168.1.5:5173', 'http://localhost:54188', 'https://cis-frontend-rust.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
